@@ -1,0 +1,15 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer__left {
+    display: flex;
+    flex-direction: row;
+}
+
+.footer__right {
+    display: flex;
+    flex-direction: row;
+}
