@@ -25,6 +25,7 @@ function NewsCard({
                 <p className="card__source">{card.source}</p>
             </div>
         </li>
+        // working on rendering card information!!
     )
 }
 
