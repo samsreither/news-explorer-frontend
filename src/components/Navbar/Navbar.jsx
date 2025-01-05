@@ -1,23 +1,22 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar({ handleOpenModal }) {
+function Navbar({ openLoginModal }) {
   return (
     <nav className="navbar">
-      <div className="navbar-left">
-        <Link to="#" className="navbar_logo">
-          NewsExplorer
-        </Link>
-      </div>
-      <div className="navbar-right">
-        <Link to="#" className="navbar_home">
-          Home
-        </Link>
-        <button type="button" onClick={handleOpenModal} className="navbar_signin">
+      <NavLink to="/" className="nav__link nav__home">
+        Home
+      </NavLink>
+      <NavLink to="/" className="nav__link">
+        <button
+          type="button"
+          onClick={openLoginModal}
+          className="nav__button_signin"
+        >
           Sign In
         </button>
-      </div>
+      </NavLink>
     </nav>
   );
 }

@@ -1,37 +1,27 @@
 .navbar {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    position: relative;
+    align-items: center;
+    gap: 42px;
 }
 
-.navbar-left {
-    display: flex;
+.nav__link {
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
 }
 
-.navbar-right {
-    display: flex;
-    gap: 54px;
+.nav__home {
+    border-bottom: 3px solid #fff;
 }
 
-.navbar_logo {
-    color: white;
-    font-weight: 700;
-    font-style: 25px;
+.nav__button_signin {
+    padding: 13px 60px;
+    border-radius: 100px;
+    font-weight: 500;
+    background: none;
     cursor: pointer;
-    font-size: 20px;
-}
-
-.navbar_home {
-    color: white;
-    font-weight: 500;
-    font-style: 17px;
-    font-size: 20px;
-}
-
-.navbar_signin {
-    color: white;
-    font-weight: 500;
-    padding: 0;
-    font-style: 18px;
-    font-size: 20px;
+    border: #fff;
+    color: #fff;
+    border: 1px solid #fff;
 }
