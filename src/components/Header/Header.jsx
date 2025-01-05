@@ -2,10 +2,10 @@ import React from "react";
 import Navbar from "../Navbar/Navbar";
 import './Header.css';
 
-function Header() {
+function Header( { handleOpenModal }) {
     return (
        <header className="header">
-        <Navbar />
+        <Navbar handleOpenModal={handleOpenModal}/>
        </header>
     );
 }

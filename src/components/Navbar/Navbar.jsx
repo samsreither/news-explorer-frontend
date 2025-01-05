@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar() {
+function Navbar({ handleOpenModal }) {
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -14,9 +14,9 @@ function Navbar() {
         <Link to="#" className="navbar_home">
           Home
         </Link>
-        <Link to="#" className="navbar_signin">
+        <button type="button" onClick={handleOpenModal} className="navbar_signin">
           Sign In
-        </Link>
+        </button>
       </div>
     </nav>
   );
