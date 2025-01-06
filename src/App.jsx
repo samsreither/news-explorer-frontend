@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import About from "./components/About/About";
+import NewsCardList from "./components/NewsCardList/NewsCardList";
 import Footer from "./components/Footer/Footer";
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -65,9 +66,8 @@ function App() {
         <div className="page__content">
           <div className="page__background">
             <Header openLoginModal={openLoginModal} />
-            <Main />
+            <Main searchBtnClick={searchBtnClick} isSearching={isSearching} newsApiError={newsApiError} />
           </div>
-          <About />
           {newsArticles && (
             <NewsCardList 
             keyword={keyword}
@@ -75,6 +75,7 @@ function App() {
             newsArticles={newsArticles}
             />
           )}
+          <About />
           <Footer />
         </div>
         <ModalWithForm activeModal={activeModal} closeModal={closeModal}>

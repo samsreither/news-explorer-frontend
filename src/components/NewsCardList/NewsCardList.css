@@ -1,0 +1,49 @@
+.cards {
+    padding: 80px 102px 80px;
+    background-color: #f5f6f7;
+    margin: 0 auto;
+    max-width: 1440px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cards_path_saved-news {
+    padding-top: 62px;
+  }
+  
+  .cards__title {
+    font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1.15;
+    margin: 0;
+    color: #1a1b22;
+    margin-bottom: 64px;
+  }
+  
+  .cards__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    gap: 16px;
+  }
+  
+  .cards__button {
+    align-self: center;
+    max-width: 288px;
+    margin-top: 64px;
+    border: none;
+    background-color: #fff;
+    font-weight: 500;
+    border-radius: 80px;
+    padding: 20px 98px;
+    transition: background-color 0.5s;
+    cursor: pointer;
+    line-height: 1.33;
+  }
+  
+  .cards__button:hover {
+    background-color: #e8e8e8;
+  }
