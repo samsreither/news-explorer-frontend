@@ -10,6 +10,7 @@ import ModalWithForm from "./components/ModalWithForm/ModalWithForm";
 // import CurrentUserContext from "./contexts/CurrentUserContext";
 import { API_KEY } from "./utils/constants";
 import getNewsData from "./utils/NewsApi";
+import RegisterModal from "./components/RegisterModal/RegisterModal";
 
 function App() {
   // const [currentUser, setCurrentUser] = useState(null);
@@ -78,26 +79,15 @@ function App() {
           <About />
           <Footer />
         </div>
-        <ModalWithForm activeModal={activeModal} closeModal={closeModal}>
-          <label htmlFor="email" className="modal__label">
-            Email{" "}
-            <input
-              type="text"
-              className="modal__input"
-              id="email"
-              placeholder="Email"
-            />
-          </label>
-          <label htmlFor="password" className="modal__label">
-            Password{" "}
-            <input
-              type="text"
-              className="modal__input"
-              id="password"
-              placeholder="Password"
-            />
-          </label>
-        </ModalWithForm>
+        {/* Rendering of Modals  */}
+        {activeModal === 'login' && (
+          // render login modal
+          <LoginModal />
+        )}
+        {activeModal === 'register' && (
+          // render register modal
+          <RegisterModal />
+        )}
       </div>
     </Router>
   );
