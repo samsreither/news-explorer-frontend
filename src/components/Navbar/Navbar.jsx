@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar({ openLoginModal }) {
+function Navbar({ handleSignInClick }) {
   return (
     <nav className="navbar">
       <NavLink to="/" className="nav__link nav__home">
@@ -11,7 +11,7 @@ function Navbar({ openLoginModal }) {
       <NavLink to="/" className="nav__link">
         <button
           type="button"
-          onClick={openLoginModal}
+          onClick={handleSignInClick}
           className="nav__button_signin"
         >
           Sign In

@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Header.css";
 
-function Header({ openLoginModal }) {
+function Header({ handleSignInClick }) {
   return (
     <header className="header">
       <Link className="header__link" to="/">
         <p className="header__logo">NewsExplorer</p>
       </Link>
-      <Navbar openLoginModal={openLoginModal} />
+      <Navbar handleSignInClick={handleSignInClick} />
     </header>
   );
 }

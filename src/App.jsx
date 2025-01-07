@@ -4,18 +4,20 @@ import Main from "./components/Main/Main";
 import About from "./components/About/About";
 import NewsCardList from "./components/NewsCardList/NewsCardList";
 import Footer from "./components/Footer/Footer";
+import LoginModal from "./components/LoginModal/LoginModal";
+import RegisterModal from "./components/RegisterModal/RegisterModal";
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import ModalWithForm from "./components/ModalWithForm/ModalWithForm";
 // import CurrentUserContext from "./contexts/CurrentUserContext";
 import { API_KEY } from "./utils/constants";
 import getNewsData from "./utils/NewsApi";
-import RegisterModal from "./components/RegisterModal/RegisterModal";
 
 function App() {
   // const [currentUser, setCurrentUser] = useState(null);
   const [activeModal, setActiveModal] = useState("");
   // state to hold the active modal and set active modal
+  const [isActive, setIsActive] = useState(false);
   const [newsArticles, setNewsArticles] = useState(null); // state to hold the articles
   const [keyword, setKeyword] = useState(null); // intentionally absent at the start
   const [numberOfCards, setNumberOfCards] = useState(3); // why 3?? maybe 6??
@@ -29,8 +31,23 @@ function App() {
   const [apiError, setApiError] = useState(null);
   const [selectedArticleId, setSelectedArticleId] = useState(null);
 
-  const openLoginModal = () => setActiveModal("login");
-  const closeModal = () => setActiveModal("");
+  // code to open and close modals
+  const handleSignInClick = () => {
+    setActiveModal('login');
+    setIsActive(true);
+  };
+
+  const handleRegisterClick = () => {
+    setActiveModal('register')
+  };
+
+  const closeModal = () => {
+    setApiError(null);
+    setIsActive(false);
+    setTimeout(() => {
+      setActiveModal(null);
+    }, 250);
+  };
 
   // handles search button click
   const searchBtnClick = (data) => {
@@ -66,27 +83,45 @@ function App() {
       <div className="page">
         <div className="page__content">
           <div className="page__background">
-            <Header openLoginModal={openLoginModal} />
-            <Main searchBtnClick={searchBtnClick} isSearching={isSearching} newsApiError={newsApiError} />
+            <Header handleSignInClick={handleSignInClick} />
+            <Main
+              searchBtnClick={searchBtnClick}
+              isSearching={isSearching}
+              newsApiError={newsApiError}
+            />
           </div>
           {newsArticles && (
-            <NewsCardList 
-            keyword={keyword}
-            numberOfCards={numberOfCards}
-            newsArticles={newsArticles}
+            <NewsCardList
+              keyword={keyword}
+              numberOfCards={numberOfCards}
+              newsArticles={newsArticles}
             />
           )}
           <About />
           <Footer />
         </div>
         {/* Rendering of Modals  */}
-        {activeModal === 'login' && (
+        {activeModal === "login" && (
           // render login modal
-          <LoginModal />
+          <LoginModal
+            activeModal={activeModal}
+            isActive={isActive}
+            apiError={apiError}
+            isLoading={isLoading}
+            closeModal={closeModal}
+            handleRegisterClick={handleRegisterClick}
+          />
         )}
-        {activeModal === 'register' && (
+        {activeModal === "register" && (
           // render register modal
-          <RegisterModal />
+          <RegisterModal
+            activeModal={activeModal}
+            apiError={apiError}
+            isActive={isActive}
+            isLoading={isLoading}
+            closeModal={closeModal}
+            handleLoginClick={handleSignInClick}
+          />
         )}
       </div>
     </Router>

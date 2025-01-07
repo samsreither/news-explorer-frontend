@@ -1,25 +1,110 @@
 .modal {
+  display: flex;
   position: fixed;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  opacity: 0;
   visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: visibility 0s 0.5s, opacity 0.5s;
 }
 
-.modal__opened {
+.modal_opened {
   visibility: visible;
   opacity: 1;
   transition: visibility 0s, opacity 0.5s;
 }
 
-.modal__close {
+.modal__container {
+  background-color: #fff;
+  width: 100%;
+  max-width: 430px;
+  max-height: 460px;
+  position: relative;
+  border-radius: 20px;
+}
+
+.modal__title {
+  font-size: 24px;
+  font-weight: 900;
+  color: #1a1b22;
+  margin: 0 0 22px;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  padding: 34px 36px 28px;
+  justify-content: center;
+}
+
+.form__label {
+  color: #2f71e5;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+.form__input {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 31px;
+  padding: 9px 0 9px 3px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.modal__button {
+  border-radius: 100px;
+  box-shadow: 0px 5px 15px 0px rgba(14, 26, 57, 0.2);
+  background-color: #2f71e5;
+  color: #fff;
+  cursor: pointer;
+  padding: 20px 115px;
+  border: none;
+  transition: background-color 0.4s;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.modal__button:hover {
+  background-color: #347eff;
+}
+
+.modal__button:disabled {
+  color: #b6bcbf;
+  background-color: #e6e8eb;
+  box-shadow: none;
+  cursor: default;
+}
+
+.modal__redirect {
+  color: #000;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  margin: 0 auto;
+}
+
+.modal__redirect-button {
+  color: #2f71e5;
+  border: none;
+  background: transparent;
+  margin-top: 16px;
+  cursor: pointer;
+  transition: opacity 0.4s;
+}
+
+.modal__redirect-button:hover {
+  opacity: 0.6;
+}
+
+.modal__close-button {
   position: absolute;
   background: transparent;
+  background-image: url(../../images/close-icon.svg);
   right: -40px;
   top: -40px;
   width: 40px;
@@ -33,59 +118,50 @@
   cursor: pointer;
 }
 
-.modal__content {
-  background-color: #fff;
-  position: relative;
-  padding: 34px 35px;
-  min-width: 496px;
-  box-sizing: border-box;
+.modal__close-button:hover {
+  opacity: 0.6;
 }
 
-.modal__title {
-  font-size: 24px;
-  font-weight: 900;
-  color: #1a1b22;
-  margin: 0 0 22px;
+@media screen and (max-width: 520px) {
+  .modal__close-button {
+    right: 0;
+    top: -56px;
+  }
 }
 
-.modal__form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
+@media screen and (max-width: 501px) {
+  .modal_type_login,
+  .modal_type_register {
+    align-items: start;
+    padding-top: 80px;
+  }
 
-.modal__label {
-  color: #2f71e5;
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  font-size: 12px;
-}
+  .modal__container {
+    height: 100%;
+    max-height: 100%;
+    border-radius: 20px 20px 0 0;
+  }
 
-.modal__input {
-  display: block;
-  /* block elements stretch entire width of parent container by default */
-  width: 100%;
-  margin-bottom: 31px;
-  margin-top: 9px;
-  padding: 9px 0 9px 3px;
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
+  .modal__form {
+    padding: 16px;
+  }
 
-.modal__submit {
-  border-radius: 100px;
-  box-shadow: 0px 5px 15px 0px rgba(14, 26, 57, 0.2);
-  background-color: #2f71e5;
-  color: #fff;
-  cursor: pointer;
-  padding: 20px 115px;
-  border: none;
-  transition: background-color 0.4s;
-  font-weight: 500;
-  margin-top: 8px;
-}
+  .modal__title {
+    margin-bottom: 18px;
+  }
 
-.modal__submit:hover {
-    background-color: #347eff;
+  .form__input:last-of-type {
+    margin-bottom: 23px;
+  }
+
+  .modal__button {
+    margin: 0;
+  }
+
+  .modal__close-button {
+    width: 24px;
+    height: 24px;
+    top: -40px;
+    right: 16px;
+  }
 }
