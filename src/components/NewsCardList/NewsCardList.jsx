@@ -2,7 +2,7 @@ import React from "react";
 import "./NewsCardList.css";
 import NewsCard from "../NewsCard/NewsCard";
 
-function NewsCardList({ keyword, numberOfCards, newsArticles }) {
+function NewsCardList({ keyword, numberOfCards, newsArticles, handleSeeMoreClick, handleDeleteButtonClick }) {
   return (
     <section className="cards">
       <h2 className="cards__title">Search results</h2>
@@ -13,9 +13,17 @@ function NewsCardList({ keyword, numberOfCards, newsArticles }) {
             key={article._id}
             cardInfo={article}
             numberOfCards={numberOfCards}
+            handleDeleteButtonClick={handleDeleteButtonClick}
+            handleSeeMoreClick={handleSeeMoreClick}
           />
         ))}
       </ul>
+      {numberOfCards < newsArticles.length && (
+        <button className="cards__button" onClick={handleSeeMoreClick}
+        type="button">
+          See more
+        </button>
+      )}
     </section>
   );
 }

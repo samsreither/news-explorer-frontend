@@ -36,6 +36,20 @@ function RegisterModal({
     }
   }, [isActive, setValues]);
 
+  // use effect to update if the form is valid or not
+  React.useEffect(() => {
+    if (Object.values(isInvalid).every((item) => item === false)) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [isInvalid, setIsFormValid]);
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    handleUserRegistration(values);
+  };
+
   return (
     <ModalWithForm
       apiError={apiError}
@@ -47,6 +61,7 @@ function RegisterModal({
       isFormValid={isFormValid}
       isActive={isActive}
       handleRedirect={handleLoginClick}
+      handleSubmit={handleSubmit}
     >
       <label className="form__label" htmlFor="email">
         Email

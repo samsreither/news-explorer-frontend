@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm } from '../../hooks/useForm';
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 function LoginModal({
   closeModal,
@@ -9,7 +10,8 @@ function LoginModal({
   handleRegisterClick,
   isLoading,
   apiError,
-  activeModal
+  activeModal,
+  handleUserLogin
 }) {
   const {
     values,
@@ -23,6 +25,16 @@ function LoginModal({
     password: "",
   });
 
+  // use effect runs after the component renders, triggered based on dependencies aka second argument passed to it
+  useEffect(() => {
+    if (Object.values(isInvalid).every((item) => item === false)) {
+      setIsFormValid(true); // converts isInvalid obj. into array of values, if every value is false, then form becomes true
+    } else {
+      setIsFormValid(false);
+    }
+
+  }, [isInvalid, setIsFormValid]); // run this effect whenever isInvalid or setIsFormValid changes
+
   // whenever isActive state or setValues function changes, effect is triggered
   useEffect(() => {
     if (isActive) {
@@ -33,13 +45,18 @@ function LoginModal({
     }
   }, [isActive, setValues])
 
+  const handleSubmit = (evt) => {
+    handleUserLogin(values);
+    evt.preventDefault();
+  }
+
   return (
     <ModalWithForm
       apiError={apiError}
       title={"Sign in"}
       name="login"
       closeModal={closeModal}
-    //   handleSubmit={handleSubmit}
+      handleSubmit={handleSubmit}
       activeModal={activeModal}
       handleRedirect={handleRegisterClick}
       isFormValid={isFormValid}

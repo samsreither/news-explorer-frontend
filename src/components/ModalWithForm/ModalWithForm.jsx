@@ -1,7 +1,5 @@
 import "./ModalWithForm.css";
-import modalCloseIcon from "../../assets/close-icon.svg";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import { act } from "react";
 
 function ModalWithForm({
   activeModal,
