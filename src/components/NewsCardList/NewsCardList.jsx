@@ -21,7 +21,7 @@ function NewsCardList({ keyword, numberOfCards, newsArticles, handleSeeMoreClick
       {numberOfCards < newsArticles.length && (
         <button className="cards__button" onClick={handleSeeMoreClick}
         type="button">
-          See more
+          Show More
         </button>
       )}
     </section>

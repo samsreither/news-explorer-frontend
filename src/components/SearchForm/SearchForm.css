@@ -17,6 +17,7 @@
 
   .search-form__button {
     width: 168px;
+    height: 64px;
     font-weight: 500;
     line-height: 1.33;
     background-color: #2f71e5;
@@ -38,4 +39,30 @@
   
   .search-form__button:active {
     background-color: #2a65cc;
+  }
+
+  @media screen and (max-width: 919px) {
+    .search-form {
+      margin: 48px 0 0;
+      padding-bottom: 36px;
+    }
+  }
+  
+  @media screen and (max-width: 501px) {
+    .search-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-bottom: 0;
+    }
+  
+    .search-form__input {
+      padding: 17px 0 17px 16px;
+    }
+  
+    .search-form__button {
+      position: relative;
+      width: 100%;
+      padding: 16px 116px;
+    }
   }

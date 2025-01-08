@@ -21,11 +21,11 @@ function App() {
   // state to hold the active modal and set active modal
   const [isActive, setIsActive] = useState(false);
   const [newsArticles, setNewsArticles] = useState(null); // state to hold the articles
+  const [savedNewsArticles, setSavedNewsArticles] = useState([]);
   const [keyword, setKeyword] = useState(null); // intentionally absent at the start
   const [numberOfCards, setNumberOfCards] = useState(3); // why 3?? maybe 6??
   const [isSearching, setIsSearching] = useState(false);
   const [nothingFound, setNothingFound] = useState(false);
-  const [savedNewsArticles, setSavedNewsArticles] = useState([]);
   const [newsApiError, setNewsApiError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isCheckingToken, setIsCheckingToken] = useState(true);
@@ -33,6 +33,8 @@ function App() {
   const [apiError, setApiError] = useState(null);
   const [selectedArticleId, setSelectedArticleId] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const token = localStorage.getItem('jwt');
 
   // code to open and close modals
   const handleSignInClick = () => {
@@ -133,6 +135,12 @@ function App() {
         setIsSearching(false);
       });
   };
+
+  useEffect(() => {
+    if (newsArticles) {
+      console.log(newsArticles)
+    }
+  }, [newsArticles]) // to see the articles in the console - delete before production
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
