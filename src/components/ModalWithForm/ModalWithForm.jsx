@@ -1,18 +1,21 @@
 import "./ModalWithForm.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { useEscape } from "../../hooks/useEscape";
 
 function ModalWithForm({
-  activeModal,
-  closeModal,
-  submitButtonText,
   name,
   title,
   children,
+  closeModal,
+  submitButtonText,
   handleRedirect,
   isFormValid,
   apiError,
   isActive,
+  handleSubmit,
 }) {
+  useEscape(closeModal);
+
   const handleClickOutsideClose = (evt) => {
     if (evt.target.classList.contains("modal")) {
       closeModal();
@@ -25,7 +28,7 @@ function ModalWithForm({
       onMouseDown={handleClickOutsideClose}
     >
       <div className="modal__container">
-        <form className="modal__form form" >
+        <form className="modal__form form" onSubmit={handleSubmit} >
           <h2 className="modal__title">{title}</h2>
           {children}
           {apiError && (

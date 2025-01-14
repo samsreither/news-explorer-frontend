@@ -1,15 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Header.css";
 
-function Header({ handleSignInClick }) {
+function Header({
+  handleSignInClick,
+  handleLogoutClick,
+  isLoggedIn,
+  handleHomeClick,
+}) {
+  const match = useMatch("/");
+
   return (
     <header className="header">
       <Link className="header__link" to="/">
-        <p className="header__logo">NewsExplorer</p>
+        <p
+          className={
+            match
+              ? "header__logo header__logo_path_main"
+              : "header__logo header__logo_path_saved-news"
+          }
+          onClick={handleHomeClick}
+        >
+          NewsExplorer
+        </p>
       </Link>
-      <Navbar handleSignInClick={handleSignInClick} />
+      <Navbar handleHomeClick={handleHomeClick} isLoggedIn={isLoggedIn} handleSignInClick={handleSignInClick} handleLogoutClick={handleLogoutClick} />
     </header>
   );
 }

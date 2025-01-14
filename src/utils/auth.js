@@ -17,25 +17,25 @@ class Auth {
     } // combines url and options - method, headers, body - and ensures response is checked using _checkresponse
     // avoids repeating fetch logic in each method
     
-    // register({ name, email, password }) {
-    //     return this._request(`${this._baseUrl}/signup`, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({ name, email, password }),
-    //     });
-    //   }
+    register({ name, email, password }) {
+        return this._request(`${this._baseUrl}/signup`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, password }),
+        });
+      }
 
-    // login({ email, password }) {
-    //     return this._request(`${this._baseUrl}/signin`, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({ email, password }),
-    //     });
-    //   }
+    login({ email, password }) {
+        return this._request(`${this._baseUrl}/signin`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+      }
 
 
 

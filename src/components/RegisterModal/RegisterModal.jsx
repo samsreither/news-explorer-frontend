@@ -8,6 +8,7 @@ function RegisterModal({
   closeModal,
   isActive,
   handleLoginClick,
+  handleUserRegistration,
   isLoading,
   apiError,
   activeModal
@@ -37,7 +38,7 @@ function RegisterModal({
   }, [isActive, setValues]);
 
   // use effect to update if the form is valid or not
-  React.useEffect(() => {
+  useEffect(() => {
     if (Object.values(isInvalid).every((item) => item === false)) {
       setIsFormValid(true);
     } else {
@@ -47,7 +48,9 @@ function RegisterModal({
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    console.log('handle submit function triggered');
     handleUserRegistration(values);
+    
   };
 
   return (
