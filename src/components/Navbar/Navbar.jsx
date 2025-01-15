@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { NavLink, useMatch } from "react-router-dom";
 import "./Navbar.css";
-
+import logOutWhite from '../../assets/logout-white.svg';
+import logOutBlack from '../../assets/logout-black.svg';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Navbar({
@@ -49,7 +50,7 @@ function Navbar({
               }
             >
               {currentUser.name} 
-              {/* <img src={match ? logOutWhite : logOutBlack} alt="log out" /> */}
+              <img src={match ? logOutWhite : logOutBlack} alt="log out" />
             </button>
           </NavLink>
         </>

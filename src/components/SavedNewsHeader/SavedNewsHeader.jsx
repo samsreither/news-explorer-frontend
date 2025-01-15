@@ -52,7 +52,7 @@ function SavedNewsHeader({ newsArticles }) {
   return (
     <div className="saved-news-header">
       <h1 className="saved-news-header__title">Saved articles</h1>
-      <p className="saved-news-header__paragraph">{`${currentUser.name}, you have ${newsArticles.length} saved articles`}</p>
+      <p className="saved-news-header__paragraph">{`${currentUser.name}, you have ${newsArticles.length} saved ${newsArticles.length === 1 ? "article" : "articles"}`}</p>
       <p className="saved-news-header__keywords">
         By keywords:{" "}
         <span className="saved-news-header__keywords_bold">
