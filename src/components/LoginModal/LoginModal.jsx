@@ -53,7 +53,7 @@ function LoginModal({
   return (
     <ModalWithForm
       apiError={apiError}
-      title={"Sign in"}
+      title={'Sign in'}
       name="login"
       closeModal={closeModal}
       handleSubmit={handleSubmit}

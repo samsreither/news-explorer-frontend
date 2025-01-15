@@ -4,7 +4,6 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function SavedNewsHeader({ newsArticles }) {
   const currentUser = useContext(CurrentUserContext); // access current user from useContext
-
   const keywords = newsArticles.map((article) => article.keyword);
 
   const getKeywordString = (data) => {

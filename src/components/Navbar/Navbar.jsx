@@ -48,8 +48,8 @@ function Navbar({
                   : 'nav__button nav__button_path_saved-news nav__button_content_logout'
               }
             >
-              {currentUser.name}
-              <img src={match ? logOutWhite : logOutBlack} alt="log out" />
+              {currentUser.name} 
+              {/* <img src={match ? logOutWhite : logOutBlack} alt="log out" /> */}
             </button>
           </NavLink>
         </>

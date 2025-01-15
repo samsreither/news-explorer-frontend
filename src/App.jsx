@@ -8,7 +8,7 @@ import Footer from "./components/Footer/Footer";
 import LoginModal from "./components/LoginModal/LoginModal";
 import RegisterModal from "./components/RegisterModal/RegisterModal";
 import "./App.css";
-import { auth } from './utils/auth'
+import { auth } from "./utils/auth";
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import { API_KEY } from "./utils/constants";
 import getNewsData from "./utils/NewsApi";
@@ -16,8 +16,8 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import SavedNews from "./components/SavedNews/SavedNews";
 import Preloader from "./components/Preloader/Preloader";
 import ConfirmationModal from "./components/ConfirmationModal/ConfirmationModal";
-import MenuModal from './components/MenuModal/MenuModal';
-import { api } from './utils/MainApi';
+import MenuModal from "./components/MenuModal/MenuModal";
+import { api } from "./utils/MainApi";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -37,41 +37,41 @@ function App() {
   const [selectedArticleId, setSelectedArticleId] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const match = useMatch('/');
-  const token = localStorage.getItem('jwt');
+  const match = useMatch("/");
+  const token = localStorage.getItem("jwt");
 
   // use effects
   useEffect(() => {
-    if (localStorage.getItem('articles')) {
-      setNewsArticles(JSON.parse(localStorage.getItem('articles')));
-      setKeyword(localStorage.getItem('keyword'));
+    if (localStorage.getItem("articles")) {
+      setNewsArticles(JSON.parse(localStorage.getItem("articles")));
+      setKeyword(localStorage.getItem("keyword"));
     }
   }, []); // so app can restore user's saved articles and search keyword from a previous session when app reloads
 
   useEffect(() => {
     if (token) {
       setIsCheckingToken(true);
-      api.getUser(token).then((data) => {
-        setCurrentUser(data.data);
-        setIsLoggedIn(true);
-      }).catch((err) => {
-        console.log(err);
-        if (err.response && err.response.status === 401) {
-          localStorage.removeItem('jwt'); // error was happening here before
-        }
-        console.log(err.response);
-      })
-      .finally(() => {
-        setIsCheckingToken(false);
-      });
-    getUserArticles(token);
-  } else {
-    setIsCheckingToken(false);
-  }
-}, [token]); // runs whenever token changes
-// verifies user's auth status using token, fetch user's info and articles if token is valid
-
-
+      api
+        .getUser(token)
+        .then((data) => {
+          setCurrentUser(data.data);
+          setIsLoggedIn(true);
+        })
+        .catch((err) => {
+          console.log("error", err);
+          if (err.response && err.response.status === 401) {
+            localStorage.removeItem("jwt"); // error was happening here before
+          }
+        })
+        .finally(() => {
+          setIsCheckingToken(false);
+        });
+      getUserArticles(token);
+    } else {
+      setIsCheckingToken(false);
+    }
+  }, [token]); // runs whenever token changes
+  // verifies user's auth status using token, fetch user's info and articles if token is valid
 
   // code to open and close modals
   const handleSignInClick = () => {
@@ -94,39 +94,40 @@ function App() {
   // handle logging in
   const handleUserLogin = (inputValues) => {
     setIsLoading(true);
-    auth.login(inputValues)
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('jwt', data.token);
-        getUserArticles(data.token);
-        closeModal();
-      }
-    })
-    .catch((err) => {
-      if (err.includes('401') || err.includes('400')) {
-        setApiError('Incorrect email or password')
-      }
-      console.log(err);
-    })
-    .finally(() => {
-      setIsLoading(false);
-    });
+    auth
+      .login(inputValues)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("jwt", data.token);
+          getUserArticles(data.token);
+          closeModal();
+        }
+      })
+      .catch((err) => {
+        if (err.includes("401") || err.includes("400")) {
+          setApiError("Incorrect email or password");
+        }
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   // handle signing up
   const handleUserRegistration = (inputValues) => {
     setIsLoading(true);
-    console.log('Registering user with:', inputValues); // log input values
+    console.log("Registering user with:", inputValues); // log input values
     auth
       .register(inputValues)
       .then(() => {
-        console.log('registration successful')
-        setActiveModal('confirm');
+        console.log("registration successful");
+        setActiveModal("confirm");
       })
       .catch((err) => {
-        console.error('registration error:',err);
-        if (err.includes('409')) {
-          setApiError('Email already in use');
+        console.error("registration error:", err);
+        if (err.includes("409")) {
+          setApiError("Email already in use");
         }
         console.log(err);
       })
@@ -137,13 +138,15 @@ function App() {
 
   // get users articles
   const getUserArticles = (token) => {
-    api.getArticles(token).then((data) => {
-      setSavedNewsArticles(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
+    api
+      .getArticles(token)
+      .then((data) => {
+        setSavedNewsArticles(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   // handle deleting articles
   const handleDeleteArticle = () => {
@@ -164,33 +167,35 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       });
-  }
+  };
 
   // buttons (not api)
   const handleDeleteButtonClick = (articleId) => {
+    setIsActive(true);
     setActiveModal('delete');
     setSelectedArticleId(articleId);
+    
   };
 
   const handleSeeMoreClick = () => {
     setNumberOfCards(numberOfCards + 3);
-  }
+  };
 
   const handleHomeClick = () => {
     setNewsApiError(null);
     closeModal();
     setNewsArticles(null);
     setIsSearching(false);
-    localStorage.removeItem('articles');
-    localStorage.removeItem('keyword');
-  }
+    localStorage.removeItem("articles");
+    localStorage.removeItem("keyword");
+  };
 
   const handleLogoutClick = () => {
     setNewsArticles(null);
     setIsSearching(false);
     localStorage.clear();
     setIsLoggedIn(false);
-  }
+  };
 
   // handles search button click
   const searchBtnClick = (data) => {
@@ -221,89 +226,118 @@ function App() {
       });
   };
 
+  const handleMobileMenuClick = () => {
+    setTimeout(() => {
+      setIsActive(true);
+    }, 10);
+    setActiveModal("menu");
+  };
+
+  // save articles
+  const handleSaveArticle = (card) => {
+    api
+      .saveArticle(card, token)
+      .then((data) => {
+        setSavedNewsArticles([...savedNewsArticles, data.data]);
+        setSelectedArticleId(data.data._id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <div className="page__content">
-          <div className="page__background">
-            <Header handleSignInClick={handleSignInClick} handleLogoutClick={handleLogoutClick} handleHomeClick={handleHomeClick} />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Main
-                    searchBtnClick={searchBtnClick}
-                    isSearching={isSearching}
-                    newsApiError={newsApiError}
-                    setActiveModal={setActiveModal}
-                  />
-                }
-              ></Route>
-              <Route
-                path="/saved-news"
-                element={
-                  <ProtectedRoute
-                    isLoggedIn={isLoggedIn}
-                    setActiveModal={setActiveModal}
-                    isCheckingToken={isCheckingToken}
-                    setIsActive={setIsActive}
-                  >
-                    <SavedNews
-                      handleDeleteButtonClick={handleDeleteButtonClick}
-                      isLoggedIn={isLoggedIn}
-                      newsArticles={newsArticles}
-                      handleSignInClick={handleSignInClick}
-                    />
-                  </ProtectedRoute>
-                }
-              ></Route>
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          </div>
-          {isSearching && (
-            <Preloader isSearching={isSearching} nothingFound={nothingFound} />
-          )}
-          {newsArticles && (
-            <NewsCardList
-              keyword={keyword}
-              numberOfCards={numberOfCards}
-              newsArticles={newsArticles}
-              handleSeeMoreClick={handleSeeMoreClick}
-              handleDeleteArticle={handleDeleteArticle}
+        <div
+          className={
+            match
+              ? "page__content page__content_path_main"
+              : "page__content page__content_path_saved-news"
+          }
+        >
+          <Header
+            isLoggedIn={isLoggedIn}
+            handleSignInClick={handleSignInClick}
+            handleLogoutClick={handleLogoutClick}
+            handleHomeClick={handleHomeClick}
+            handleMobileMenuClick={handleMobileMenuClick}
+          />
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Main
+                  setActiveModal={setActiveModal}
+                  searchBtnClick={searchBtnClick}
+                  isSearching={isSearching}
+                  newsApiError={newsApiError}
+                />
+              }
             />
-          )}
-          <About />
-          <Footer />
+            <Route
+              path="/saved-news"
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  setActiveModal={setActiveModal}
+                  isCheckingToken={isCheckingToken}
+                  setIsActive={setIsActive}
+                >
+                  <SavedNews
+                    handleDeleteButtonClick={handleDeleteButtonClick}
+                    isLoggedIn={isLoggedIn}
+                    newsArticles={savedNewsArticles}
+                    handleSignInClick={handleSignInClick}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
         </div>
-        {/* Rendering of Modals  */}
+        {isSearching && (
+          <Preloader isSearching={isSearching} nothingFound={nothingFound} />
+        )}
+        {newsArticles && match && (
+          <NewsCardList
+            handleSaveArticle={handleSaveArticle}
+            keyword={keyword}
+            numberOfCards={numberOfCards}
+            newsArticles={newsArticles}
+            isLoggedIn={isLoggedIn}
+            handleSignInClick={handleSignInClick}
+            handleSeeMoreClick={handleSeeMoreClick}
+            handleDeleteArticle={handleDeleteArticle}
+          />
+        )}
+        {match && <About />}
+        <Footer handleHomeClick={handleHomeClick} />
         {activeModal === "login" && (
-          // render login modal
           <LoginModal
-            activeModal={activeModal}
             isActive={isActive}
             apiError={apiError}
             isLoading={isLoading}
+            handleUserLogin={handleUserLogin}
             closeModal={closeModal}
             handleRegisterClick={handleRegisterClick}
-            handleUserLogin={handleUserLogin}
           />
         )}
         {activeModal === "register" && (
-          // render register modal
           <RegisterModal
-            activeModal={activeModal}
             apiError={apiError}
             isActive={isActive}
-            isLoading={isLoading}
             closeModal={closeModal}
             handleLoginClick={handleSignInClick}
             handleUserRegistration={handleUserRegistration}
+            isLoading={isLoading}
           />
         )}
-        {activeModal === 'menu' && (
+        {activeModal === "menu" && (
           <MenuModal
             closeModal={closeModal}
-            handleSigninClick={handleSigninClick}
+            handleSignInClick={handleSignInClick}
             isActive={isActive}
             isLoggedIn={isLoggedIn}
             handleLogoutClick={handleLogoutClick}
@@ -314,19 +348,19 @@ function App() {
           <ConfirmationModal
             closeModal={closeModal}
             isActive={isActive}
-            buttonText={isLoading ? 'Deleting...' : 'Delete'}
-            title={'Are you sure you want to remove this card?'}
+            buttonText={isLoading ? "Deleting..." : "Delete"}
+            title={"Are you sure you want to remove this card?"}
             name={'delete'}
             handleButton={handleDeleteArticle}
           />
         )}
-        {activeModal === 'confirm' && (
+        {activeModal === "confirm" && (
           <ConfirmationModal
             closeModal={closeModal}
             isActive={isActive}
-            buttonText={'Sign in'}
-            title={'Registration successfully completed!'}
-            name={'confirm'}
+            buttonText={"Sign in"}
+            title={"Registration successfully completed!"}
+            name={"confirm"}
             handleButton={handleSignInClick}
           />
         )}

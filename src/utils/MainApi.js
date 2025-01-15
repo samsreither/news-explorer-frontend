@@ -1,5 +1,4 @@
-const baseUrl =
-  process.env.NODE_ENV === 'http://localhost:3001';
+const baseUrl = 'http://localhost:3001';
 
 class MainApi {
   constructor({ baseUrl }) {
@@ -9,7 +8,7 @@ class MainApi {
   _checkResponse(res) {
     if (res.ok) {
       return res.json();
-    }
+      }
     return Promise.reject(`Error: ${res.status}`);
   }
 
@@ -24,6 +23,7 @@ class MainApi {
         'Content-Type': 'application/json',
         authorization: `Bearer ${token}`,
       },
+
     });
   }
 
